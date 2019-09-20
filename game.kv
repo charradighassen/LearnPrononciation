@@ -1,0 +1,109 @@
+#: kivy 1.0.9
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+ScreenManagement:
+    transition: FadeTransition()
+    MainScreen:
+    GameScreen:
+    ScoreScreen:
+
+
+
+<MainScreen>:
+    name: "main"      
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    RelativeLayout:
+        size: 200, 100
+        orientation: 'vertical'
+        Label:
+            text:"Welcome !!!"
+            color: [0,1,0,1]
+            font_size:70
+            size_hint_y: 1
+            size_hint_x: 1
+        Button:
+            on_release: app.root.current = "game"
+            text: "Start"
+            size_hint_y: 0.2
+            size_hint_x: 0.2
+            color:[0,0,0,0.5]
+            background_color: (1.0,1.0,1.0,1.0)
+            font_size:20
+            size: self.size
+            pos: self.pos
+
+<GameScreen>:
+    #variables
+    name: "game"
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size      
+    GridLayout:
+        rows:3
+        cols:1 
+        ImageViewer:
+            rows:2
+            cols:1        
+            size_hint_y: 8
+            size_hint_x: 5
+            spacing: 30
+            padding:[0,20,0,30]
+            name:""
+            Image:
+                id:image_id
+                source: root.source
+                size_hint_y: 50
+                size_hint_x:50
+                allow_stretch: True
+            Label:
+                id: image_label		
+                font_size: 35
+                color:[1,0,0,1]
+                text: root.imageTitle
+                
+        GameController:
+            rows:2
+            cols:3
+            font_size:40
+            spacing: 10
+           
+            Button:
+                text:"Speak"
+                size_hint_y: 0.3
+                size_hint_x: 0.6
+                background_color: (0.0, 0.9, 0.0, 1)
+                on_press:root.play()
+            Label:
+                id: result_label
+                text:"what you say ?"
+                color:[0,0,0,1]
+                font_size:32
+            Button:
+                text:"Listen"
+                size_hint_y: 0.3
+                size_hint_x: 0.6
+                background_color: (0.9, 0.0, 0.0, 1)
+                on_press:root.listenToMe()
+        GameProgress:
+            
+            # canvas:
+            #     Color:
+            #         rgb: 0,1,0
+            #     Ellipse:
+            #         pos: self.pos
+            #         size: 20,20
+            Label:
+                text:"* * * * * * * * * *"
+                color:[0,1,0,1]
+<ScoreScreen>:
+    Label:
+        text:"Your score is 100 % "    
+    
+        
